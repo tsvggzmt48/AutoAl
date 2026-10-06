@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoAI</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #f4f6f8;
+      color: #111827;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .app {
+      max-width: 500px;
+      margin: auto;
+      min-height: 100vh;
+      background: white;
+      padding-bottom: 90px;
+    }
+
+    header {
+      padding: 24px 20px 18px;
+      background: #111827;
+      color: white;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    header p {
+      margin: 6px 0 0;
+      color: #aeb8c5;
+      font-size: 14px;
+    }
+
+    .car {
+      margin: 18px;
+      padding: 18px;
+      border-radius: 18px;
+      background: #eef6ff;
+      border: 1px solid #d5e8ff;
+    }
+
+    .car-title {
+      font-size: 13px;
+      color: #64748b;
+    }
+
+    .car-name {
+      margin-top: 5px;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .car-info {
+      margin-top: 5px;
+      color: #64748b;
+      font-size: 13px;
+    }
+
+    .section {
+      padding: 0 18px;
+    }
+
+    .section h2 {
+      font-size: 19px;
+      margin: 22px 0 12px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .card {
+      padding: 16px;
+      min-height: 125px;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      background: white;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .card:active {
+      transform: scale(0.98);
+      background: #f8fafc;
+    }
+
+    .icon {
+      font-size: 27px;
+      margin-bottom: 12px;
+    }
+
+    .card b {
+      display: block;
+      font-size: 14px;
+    }
+
+    .card span {
+      display: block;
+      margin-top: 5px;
+      color: #6b7280;
+      font-size: 12px;
+    }
+
+    .chat {
+      margin: 20px 18px;
+      padding: 18px;
+      border-radius: 18px;
+      background: #111827;
+      color: white;
+    }
+
+    .chat h2 {
+      margin: 0 0 6px;
+      font-size: 19px;
+    }
+
+    .chat p {
+      margin: 0 0 14px;
+      color: #aeb8c5;
+      font-size: 13px;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 55px;
+      resize: none;
+      border: 0;
+      border-radius: 12px;
+      padding: 12px;
+      font-family: inherit;
+      outline: none;
+    }
+
+    .send {
+      border: 0;
+      border-radius: 12px;
+      padding: 0 16px;
+      background: #2563eb;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .response {
+      display: none;
+      margin-top: 12px;
+      padding: 13px;
+      border-radius: 12px;
+      background: #1f2937;
+      color: #e5e7eb;
+      white-space: pre-wrap;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    nav {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(500px, 100%);
+      height: 68px;
+      background: white;
+      border-top: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 10;
+    }
+
+    nav div {
+      text-align: center;
+      color: #64748b;
+      font-size: 10px;
+    }
+
+    nav span {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 3px;
+    }
+
+    .notice {
+      margin: 0 18px 20px;
+      padding: 14px;
+      border-radius: 14px;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      color: #9a3412;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <header>
+    <h1>🚗 AutoAI</h1>
+    <p>Интелигентният асистент за твоя автомобил</p>
+  </header>
+
+  <div class="car">
+    <div class="car-title">МОЯТ АВТОМОБИЛ</div>
+    <div class="car-name">VW Tiguan</div>
+    <div class="car-info">1.5 TSI • 150 HP • 105 000 km</div>
+  </div>
+
+  <div class="notice">
+    💡 AutoAI помага с диагностика, поддръжка и въпроси за автомобила. При опасни симптоми винаги потърси професионален сервиз.
+  </div>
+
+  <div class="section">
+    <h2>Какво ти трябва?</h2>
+
+    <div class="grid">
+
+      <div class="card" onclick="ask('Имам проблем с автомобила. Как да започна диагностика?')">
+        <div class="icon">🔧</div>
+        <b>Диагностика</b>
+        <span>Открий възможните причини</span>
+      </div>
+
+      <div class="card" onclick="ask('Какво означава предупредителна лампа на таблото?')">
+        <div class="icon">🚨</div>
+        <b>Лампи</b>
+        <span>Разбери warning lights</span>
+      </div>
+
+      <div class="card" onclick="ask('Каква поддръжка трябва да направя на автомобила си?')">
+        <div class="icon">🛠️</div>
+        <b>Поддръжка</b>
+        <span>Какво предстои?</span>
+      </div>
+
+      <div class="card" onclick="ask('Колко приблизително може да струва ремонт на автомобил в Германия?')">
+        <div class="icon">💰</div>
+        <b>Цена на ремонт</b>
+        <span>Ориентировъчни разходи</span>
+      </div>
+
+      <div class="card" onclick="ask('Какво трябва да проверя преди да купя употребяван автомобил?')">
+        <div class="icon">🔍</div>
+        <b>Преди покупка</b>
+        <span>Провери автомобила</span>
+      </div>
+
+      <div class="card" onclick="ask('Как да поддържам сервизна история на автомобила?')">
+        <div class="icon">📋</div>
+        <b>История</b>
+        <span>Сервизни записи</span>
+      </div>
+
+      <div class="card" onclick="ask('Как да изчислявам разходите за автомобила си?')">
+        <div class="icon">⛽</div>
+        <b>Разходи</b>
+        <span>Гориво и ремонти</span>
+      </div>
+
+      <div class="card" onclick="ask('Как да разбера дали даден проблем с автомобила е опасен за шофиране?')">
+        <div class="icon">⚠️</div>
+        <b>Безопасност</b>
+        <span>Мога ли да карам?</span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="chat">
+
+    <h2>🤖 Попитай AutoAI</h2>
+
+    <p>Опиши проблема или задай въпрос за автомобила.</p>
+
+    <div class="input-row">
+
+      <textarea id="question" placeholder="Например: Светна ми EPC..."></textarea>
+
+      <button class="send" onclick="sendQuestion()">➤</button>
+
+    </div>
+
+    <div id="response" class="response"></div>
+
+  </div>
+
+  <nav>
+    <div>
+      <span>⌂</span>
+      Начало
+    </div>
+
+    <div>
+      <span>🚗</span>
+      Моята кола
+    </div>
+
+    <div>
+      <span>🤖</span>
+      AutoAI
+    </div>
+
+    <div>
+      <span>🔧</span>
+      Сервиз
+    </div>
+
+    <div>
+      <span>👤</span>
+      Профил
+    </div>
+  </nav>
+
+</div>
+
+<script>
+
+function ask(text) {
+  document.getElementById("question").value = text;
+
+  document.getElementById("question").focus();
+}
+
+function sendQuestion() {
+
+  const question = document.getElementById("question").value.trim();
+
+  const response = document.getElementById("response");
+
+  if (!question) {
+    return;
+  }
+
+  response.style.display = "block";
+
+  response.textContent =
+    "AutoAI получи въпроса ти.\n\n" +
+    "AI системата ще бъде свързана в следващата стъпка.";
+
+}
+
+</script>
+
+</body>
+</html>
